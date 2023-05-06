@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #form_datos {
+            background-color: rgba(224, 32, 214, 0.479);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        #formABM {
+            margin: 0px auto 10px auto;
+            padding: 20px;
+            background-color: rgba(245, 191, 227, 0.61);
+            border-radius: 10px;
+            text-align: left;
+        }
+
+        #form_datos,
+        #form_ABM {
+
+            margin: 0 auto;
+            display: inline-block;
+            text-align: left;
+        }
+
+        body {
+            max-width: 900px;
+            font-family: Arial, sans-serif;
+            margin: 0 auto;
+            padding: 30px;
+            flex-direction: column;
+            position: relative;
+            text-align: center;
+            background-color: rgba(245, 191, 227, 0.281);
+        }
+
+        label[for="txtNombre"],
+        label[for="txtApellido"],
+        label[for="txtEdad"] {
+            font-weight: bold;
+        }
+
+        input:required {
+            border-color: red;
+        }
+
+        .error-message {
+            color: red;
+            font-style: italic;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+
+        table,
+        td,
+        th {
+            border: 1px solid black;
+        }
+
+        td,
+        th {
+            padding: 5px;
+        }
+
+        thead {
+            background-color: rgb(0, 255, 106);
+        }
+
+        table {
+            width: 700px;
+            border-radius: 10px;
+            border-collapse: collapse;
+            position: relative;
+            text-align: center;
+        }
+
+        tbody tr:hover {
+            background-color: rgba(78, 212, 107, 0.534);
+        }
+
+        button {
+            background-color: rgb(86, 86, 240);
+            padding: 10px;
+            border-radius: 30px;
+            width: 120px;
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+
+        input,
+        select {
+            background-color: rgb(253, 253, 253);
+            border: 1;
+            border-radius: 10px;
+            padding: 5px;
+            margin-bottom: 3px;
+        }
+
+        select {
+            width: 80%;
+        }
+
+        .error-message {
+            color: red;
+            font-style: italic;
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="formDatos">
+        <form id="form_datos">
+            <label for="filtroPersona">Filtrar por:</label>
+            <select id="filtroPersona">
+                <option value="todos">Todos</option>
+                <option value="heroes">Heroes</option>
+                <option value="villanos">Villanos</option>
+            </select>
+            <br>
+            <br>
+            <label>Calcular la edad promedio:</label>
+            <input type="text" id="txtPromedio" readonly>
+            <button type="button" id="btnCalcular">Calcular</button>
+            <br>
+            <br>
+            <label>Mostrar columnas:</label>
+            <br>
+            <label for="id">ID</label>
+            <input type="checkbox" id="id" name="Id" checked>
+            <label for="nombre">Nombre</label>
+            <input type="checkbox" id="nombre" name="Nombre" checked>
+            <label for="apellido">Apellido</label>
+            <input type="checkbox" id="apellido" name="Apellido" checked>
+            <label for="edad">Edad</label>
+            <input type="checkbox" id="edad" name="Edad" checked>
+            <label for="alterego">Alterego</label>
+            <input type="checkbox" id="alterego" name="Alterego" checked>
+            <label for="ciudad">Ciudad</label>
+            <input type="checkbox" id="ciudad" name="Ciudad" checked>
+            <label for="publicado">Publicado</label>
+            <input type="checkbox" id="publicado" name="Publicado" checked>
+            <label for="enemigo">Enemigo</label>
+            <input type="checkbox" id="enemigo" name="Enemigo" checked>
+            <label for="robos">Robos</label>
+            <input type="checkbox" id="robos" name="Robos" checked>
+            <label for="asesinatos">Asesinatos</label>
+            <input type="checkbox" id="asesinatos" name="Asesinatos" checked>
+            <br>
+            <table id="tabla_datos">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Edad</th>
+                        <th>Alterego</th>
+                        <th>Ciudad</th>
+                        <th>Publicado/th>
+                        <th>Enemigo/th>
+                        <th>Robos/th>
+                        <th>Asesinatos/th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <br>
+        </form>
+        <button id="btnAgregar">Agregar</button>
+    </div>
+    <br>
+    <!-- Formulario formABM -->
+    <div id="form_ABM">
+        <form id="formABM">
+            <label for="id">ID:</label>
+            <input type="text" id="txtId" readonly>
+            <br>
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="txtNombre">
+            <p class="error-message"></p>
+            <br>
+            <label for="apellido">Apellido:</label>
+            <input type="text" id="txtApellido">
+            <p class="error-message"></p>
+            <br>
+            <label for="edad">Edad:</label>
+            <input type="text" id="txtEdad" >
+            <p class="error-message"></p>
+            <br>
+            <label for="tipo">Tipo:</label>
+            <select id="selecTipo">
+                <option value="persona">Persona</option>
+                <option value="heroe">Heroe</option>
+                <option value="villano">Villano</option>
+            </select>
+            <br>
+            <label id="lblAtributo1" for="txtAtributo1">Atributo1</label>
+            <input type="text" id="txtAtributo1">
+            <p class="error-message"></p>
+            <br>
+            <label id="lblAtributo2" for="txtAtributo2">Atributo2</label>
+            <input type="text" id="txtAtributo2">
+            <p class="error-message"></p>
+            <br>
+            <label id="lblAtributo3" for="txtAtributo3">Atributo2</label>
+            <input type="text" id="txtAtributo3">
+            <p class="error-message"></p>
+            <br>
+            <button type="button" id="btnGuardar">Guardar</button>
+            <button type="button" id="btnModificar">Modificar</button>
+            <button type="button" id="btnEliminar">Eliminar</button>
+            <button type="button" id="btnCancelar">Cancelar</button>
+        </form>
+    </div>
+</body>
+<script>
+    // ------------------Clases-------------------//
+    class Persona {
+        constructor(id, nombre, apellido, edad) {
+            this.id = id;
+            this.nombre = nombre;
+            this.apellido = apellido;
+            this.edad = edad;
+        }
+    }
+    class Heroe extends Persona {
+        constructor(id, nombre, apellido, edad, alterego, ciudad, publicado) {
+            super(id, nombre, apellido, edad);
+            this.alterego = alterego;
+            this.ciudad = ciudad;
+            this.publicado = publicado;
+        }
+    }
+    class Villano extends Persona {
+        constructor(id, nombre, apellido, edad, enemigo, robos, asesinatos) {
+            super(id, nombre, apellido, edad);
+            this.enemigo = enemigo;
+            this.robos = robos;
+            this.asesinatos = asesinatos;
+        }
+    }
+    //---------------------SERVICIO---------------//
+    // Parseo de la cadena JSON para obtener el array de objetos
+    const data = JSON.parse('[{"id":1, "nombre":"Clark", "apellido":"Kent", "edad":45, "alterego":"Superman", "ciudad":"Metropolis","publicado":2002},{"id":2, "nombre":"Bruce", "apellido":"Wayne", "edad":35, "alterego":"Batman", "ciudad":"Gotica","publicado":20012},{"id":3, "nombre":"Bart", "apellido":"Alen", "edad":30, "alterego":"Flash", "ciudad":"Central","publicado":2017},{"id":4, "nombre":"Lex", "apellido":"Luthor", "edad":18, "enemigo":"Superman", "robos":500,"asesinatos":7},{"id":5, "nombre":"Harvey", "apellido":"Dent", "edad":20, "enemigo":"Batman", "robos":750,"asesinatos":2},{"id":666, "nombre":"Celina", "apellido":"kyle", "edad":23, "enemigo":"Batman", "robos":25,"asesinatos":1}]');
+
+    // Creación del array de objetos
+    const objetos = data.map(obj => {
+        if (obj.hasOwnProperty('ciudad') && obj.hasOwnProperty('publicado')) {
+            return new Heroe(obj.id, obj.nombre, obj.apellido, obj.edad, obj.alterego, obj.ciudad, obj.publicado);
+        } else if (obj.hasOwnProperty('enemigo') && obj.hasOwnProperty('robos') && obj.hasOwnProperty('asesinatos')) {
+            return new Villano(obj.id, obj.nombre, obj.apellido, obj.edad, obj.enemigo, obj.robos, obj.asesinatos);
+        } else {
+            return new Persona(obj.id, obj.nombre, obj.apellido, obj.edad);
+        }
+    });
+    //----------------CONSTANTES----------------//
+    const form = $('form_datos');
+    const form_div = $('form_div')
+    const tabla = $('tabla_datos');
+    const checkboxes = form.querySelectorAll('input[type=checkbox]');
+    const filtroSelect = $('filtroPersona');
+    const promedioInput = $('txtPromedio');
+    const id = $('txtId');
+    const calcularBtn = $('btnCalcular');
+    const agregarBtn = $('btnAgregar');
+    const cancelarBtn = $('btnCancelar');
+    const guardarBtn = $('btnGuardar');
+    const modificarBtn = $('btnModificar');
+    const eliminarBtn = $('btnEliminar');
+    const label1 = $('lblAtributo1');
+    const label2 = $('lblAtributo2');
+    const label3 = $('lblAtributo3');
+    const input1 = $('txtAtributo1');
+    const input2 = $('txtAtributo2');
+    const input3 = $('txtAtributo3');
+    const formABM = $('formABM');
+    const filtroTipo = $('selecTipo');
+    const formulario = document.forms[1];
+    const controles = formulario.elements;
+
+    //------------------Eventos-------------------------------//
+    // Evento q captura la carga de la pagina
+    window.addEventListener("load", () => {
+        llenarTabla(objetos);
+        ocultarFormAbm();
+    });
+
+    // Evento al hacer clic en el botón "calcular"
+    calcularBtn.addEventListener('click', calcularPromedio);
+
+    // Evento al cambiar el valor del filtro
+    filtroSelect.addEventListener('change', () => {
+        llenarTabla(objetos);
+        promedioInput.value = ''; 
+    });
+    // Evento al cambiar la seleccion de los checkbox
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', () => {
+            llenarTabla(objetos)
+        });
+    });
+    filtroTipo.addEventListener('change', () => {
+        if (selecTipo.value == 'heroe') {
+            label1.textContent = "Alterego";
+            label2.textContent = "Ciudad";
+            label3.textContent = "Publicado";
+            input1.style.display = "flex";
+            input2.style.display = "flex";
+            input3.style.display = "flex";
+        } else if (selecTipo.value == 'villano') {
+            label1.textContent = "Enemigo";
+            label2.textContent = "Robos";
+            label3.textContent = "Asesinatos";
+            input1.style.display = "flex";
+            input2.style.display = "flex";
+            input3.style.display = "flex";
+        } else {
+            label1.textContent = "No Corresponde";
+            label2.textContent = "No Corresponde";
+            label3.textContent = "No Corresponde";
+            input1.style.display = "none";
+            input2.style.display = "none";
+            input3.style.display = "none";
+        }
+    });
+
+    //Agregar evento de doble clic al botón Agregar
+    agregarBtn.addEventListener('click', () => {
+        ocultarFormDatos();
+        limpiarForm();
+        abrirFormAbm(null, objetos);
+        guardarBtn.style.display = 'flex'; 
+        modificarBtn.style.display = 'none'; 
+        eliminarBtn.style.display = 'none'; 
+        cancelarBtn.style.display = 'flex'; 
+    });
+
+    guardarBtn.addEventListener('click', () => {
+        if (validarFormulario()) {
+            agregarPersona(objetos);
+            ocultarFormAbm();
+            llenarTabla(objetos);
+            limpiarForm();
+        }
+    });
+    //TODO AGREGAR MODIFICAR
+    modificarBtn.addEventListener('click', () => { 
+        modificarPersona(txtId.value,objetos); 
+        ocultarFormAbm();
+        llenarTabla(objetos);
+        limpiarForm();
+        
+    });
+
+    eliminarBtn.addEventListener('click', () => { 
+        const index = objetos.findIndex((persona) => persona.id == txtId.value);
+        //objetos = objetos.filter(obj => obj.id !== txtId.value); 
+        objetos.splice(index, 1); 
+        ocultarFormAbm(); 
+        llenarTabla(objetos); 
+    });
+
+    //TODO AGREGAR ELIMINAR
+
+    cancelarBtn.addEventListener('click', () => {
+        limpiarForm();
+        ocultarFormAbm();
+    });
+
+    // Asociar evento "dblclick" a la tabla
+    tabla.addEventListener('dblclick', (event) => {
+        // Obtener el elemento del evento que disparó el evento (celda de la tabla)
+        const emisor = event.target;
+        console.log(event)
+        // Verificar que el elemento sea una celda (td) de la tabla
+        if (emisor.tagName === 'TD') {
+            // Obtener el elemento padre (fila tr) de la celda
+            const fila = emisor.parentNode;
+            console.log(fila)
+            // Obtener el ID del objeto en la fila (el ID debe estar en un atributo "data-id" de la fila)
+            const id = fila.firstElementChild.textContent;
+            // Obtener el objeto correspondiente al ID
+            const person = objetos.find(objeto => objeto.id == id);
+            abrirFormAbm(person, objetos);
+            ocultarFormDatos(); 
+            guardarBtn.style.display = 'none'; 
+            modificarBtn.style.display = 'flex'; 
+            eliminarBtn.style.display = 'flex'; 
+            cancelarBtn.style.display = 'flex'; 
+        }
+        if (emisor.tagName === 'TH') {
+            console.log(emisor.cellIndex);
+            ordenarTabla(emisor.cellIndex);
+        }
+    });
+
+    //----------------------FUNCIONES----------------------------//
+    function ocultarFormDatos() {
+        form.style.display = 'none';
+        formABM.style.display = 'block';
+        agregarBtn.style.display = 'none';
+    }
+    function ocultarFormAbm() {
+        formABM.style.display = 'none';
+        form.style.display = 'block';
+        agregarBtn.style.display = 'block';
+    }
+
+    function ordenarTabla(columna) {
+        const tbody = document.querySelector('table tbody');
+        const filas = Array.from(tbody.querySelectorAll('tr'));
+
+        // Obtener los datos de la columna seleccionada
+        const datos = filas.map(fila => fila.querySelectorAll('td')[columna].textContent);
+
+        // Ordenar los datos según el tipo de columna (numérico o alfabético)
+        if (isNaN(datos[0])) {
+            datos.sort();
+        } else {
+            datos.sort((a, b) => parseFloat(a) - parseFloat(b));
+        }
+
+        // Generar la nueva tabla con los datos ordenados
+        const nuevaTabla = document.createElement('table');
+        nuevaTabla.appendChild(document.querySelector('table thead').cloneNode(true));
+        const nuevoTbody = document.createElement('tbody');
+        datos.forEach(dato => {
+            const fila = filas.find(fila => fila.querySelectorAll('td')[columna].textContent === dato);
+            nuevoTbody.appendChild(fila.cloneNode(true));
+        });
+        nuevaTabla.appendChild(nuevoTbody);
+
+        // Reemplazar la tabla original por la nueva tabla ordenada
+        tbody.parentNode.replaceChild(nuevoTbody, tbody);
+    }
+
+    function $(id) {
+        return document.getElementById(id);
+    }
+
+    function abrirFormAbm(persona, lista) {
+        const {
+            txtId,
+            txtNombre,
+            txtApellido,
+            txtEdad,
+            selecTipo,
+            txtAtributo1,
+            txtAtributo2,
+            txtAtributo3,
+        } = controles;
+        if (persona != null) {
+            if ("ciudad" in persona) {
+                label1.textContent = "Alterego";
+                txtAtributo1.value = persona.alterego;
+                label2.textContent = "Ciudad";
+                txtAtributo2.value = persona.ciudad;
+                label3.textContent = "Publicado";
+                txtAtributo3.value = persona.publicado;
+                selecTipo.value = "heroe";
+            } else if ("enemigo" in persona) {
+                label1.textContent = "Enemigo";
+                txtAtributo1.value = persona.enemigo;
+                label2.textContent = "Robos";
+                txtAtributo2.value = persona.robos;
+                label3.textContent = "Asesinatos";
+                txtAtributo3.value = persona.asesinatos;
+                selecTipo.value = "villano";
+            } else {
+                label1.textContent = "NA";
+                label2.textContent = "NA";
+                label3.textContent = "NA";
+                selecTipo.value = "persona";
+            }
+            txtId.value = persona.id;
+            txtNombre.value = persona.nombre;
+            txtApellido.value = persona.apellido;
+            txtEdad.value = persona.edad;
+
+        } else {
+            txtId.value = ''; 
+        }
+
+    }
+
+    function filtrarInstancias(datos, filtro) {
+        let datosFiltrados = datos.filter((dato) => {
+            if (filtro === "todos") {
+                return true;
+            } else if (filtro === "persona") {
+                return dato instanceof Persona;
+            } else if (filtro === "heroes") {
+                return dato instanceof Heroe;
+            } else if (filtro === "villanos") {
+                return dato instanceof Villano;
+            }
+        });
+        return datosFiltrados;
+    }
+    function cambiarLabel(tipo) {
+        const atributo1 = $()
+        if (tipo == "heroes") {
+
+        } else if (filtro === "persona") {
+            return dato instanceof Persona;
+        } else if (filtro === "heroes") {
+            return dato instanceof Heroe;
+        } else if (filtro === "villanos") {
+            return dato instanceof Villano;
+        }
+    }
+    function calcularPromedio() {
+
+        //OBTENER LOS DATOS SEGUN EL FILTRO SELECCIONADO
+        let objetosFiltrados = filtrarInstancias(objetos, filtroSelect.value)
+
+        const edades = objetosFiltrados.map((objeto) => parseInt(objeto.edad));
+        const sumaEdades = edades.reduce((suma, edad) => suma + edad, 0);
+        const cantidadDatos = objetosFiltrados.length;
+
+        // Calcular el promedio y mostrarlo en el input correspondiente
+        const promedio = sumaEdades / cantidadDatos;
+        promedioInput.value = promedio.toFixed(2);
+    }
+
+    function llenarTabla(objetos) {
+        const columnas = [];
+        const objetosFiltrados = filtrarInstancias(objetos, filtroSelect.value)
+        checkboxes.forEach(checkbox => {
+            if (checkbox.checked) {
+                columnas.push(checkbox.name);
+            }
+        });
+
+        let tablaHTML = '<thead><tr>';
+        columnas.forEach(columna => {
+            tablaHTML += `<th>${columna}</th>`;
+        });
+        tablaHTML += '</tr></thead>';
+        tablaHTML += '<tbody>';
+        objetosFiltrados.forEach(objeto => {
+            tablaHTML += '<tr>';
+            columnas.forEach(columna => {
+                //console.log(objeto[columna])
+                tablaHTML += `<td>${objeto[columna.toLowerCase()] || '--'}</td>`;
+            });
+            tablaHTML += '</tr>';
+        });
+        tablaHTML += '</tbody>';
+        tabla.innerHTML = tablaHTML;
+    }
+
+    function getMaxId(objetos) {
+        return objetos.reduce((maxId, obj) => Math.max(maxId, obj.id), 0);
+    }
+
+    function validarFormulario() {
+        const {
+            txtId,
+            txtNombre,
+            txtApellido,
+            txtEdad,
+            selecTipo,
+            txtAtributo1,
+            txtAtributo2,
+            txtAtributo3,
+        } = controles;
+        if (txtNombre.value.trim() === '') {
+            txtNombre.classList.add('error');
+            txtNombre.nextElementSibling.textContent = 'El Nombre es obligatorio';
+            return false;
+        } else {
+            txtNombre.classList.remove('error');
+            txtNombre.nextElementSibling.textContent = '';
+        }
+
+        if (txtApellido.value.trim() === '') {
+            txtApellido.classList.add('error');
+            txtApellido.nextElementSibling.textContent = 'El Apellido es obligatorio';
+            return false;
+        } else {
+            txtApellido.classList.remove('error');
+            txtApellido.nextElementSibling.textContent = '';
+        }
+
+        if (txtEdad.value.trim() === '' || isNaN(txtEdad.value) || txtEdad.value < 15) {
+            txtEdad.classList.add('error');
+            txtEdad.nextElementSibling.textContent = 'La Edad debe ser un número mayor a 15';
+            return false;
+        } else {
+            txtEdad.classList.remove('error');
+            txtEdad.nextElementSibling.textContent = '';
+        }
+
+        if (selecTipo.value == 'heroe') {
+            if (txtAtributo1.value.trim() === '') {
+                txtAtributo1.classList.add('error');
+                txtAtributo1.nextElementSibling.textContent = 'El alterego es obligatorio'
+            } else {
+                txtAtributo1.classList.remove('error');
+                txtAtributo1.nextElementSibling.textContent = '';
+            }
+            if (txtAtributo2.value.trim() === '') {
+                txtAtributo2.classList.add('error');
+                txtAtributo2.nextElementSibling.textContent = 'La Ciudad es obligatoria'
+            } else {
+                txtAtributo2.classList.remove('error');
+                txtAtributo2.nextElementSibling.textContent = '';
+            }
+            if (txtAtributo3.value.trim() === '' || isNaN(txtAtributo3.value) || txtAtributo3.value < 1940) {
+                txtAtributo3.classList.add('error');
+                txtAtributo3.nextElementSibling.textContent = 'La Publicacion debe ser mayor a 1940'
+            } else {
+                txtAtributo3.classList.remove('error');
+                txtAtributo3.nextElementSibling.textContent = '';
+            }
+
+        }
+        if (selecTipo.value == 'villano') {
+            if (txtAtributo1.value.trim() === '') {
+                txtAtributo1.classList.add('error');
+                txtAtributo1.nextElementSibling.textContent = 'El Enemigo es obligatorio'
+            } else {
+                txtAtributo1.classList.remove('error');
+                txtAtributo1.nextElementSibling.textContent = '';
+            }
+            if (txtAtributo2.value.trim() === '' || isNaN(txtAtributo2.value) || txtAtributo2.value < 0) {
+                txtAtributo2.classList.add('error');
+                txtAtributo2.nextElementSibling.textContent = 'El Robo es obligatorio y mayor a cero'
+            } else {
+                txtAtributo2.classList.remove('error');
+                txtAtributo2.nextElementSibling.textContent = '';
+            }
+            if (txtAtributo3.value.trim() === '' || isNaN(txtAtributo3.value) || txtAtributo3.value < 0) {
+                txtAtributo3.classList.add('error');
+                txtAtributo3.nextElementSibling.textContent = 'Los asesinatos son obligatorios y mayor a cero'
+            } else {
+                txtAtributo3.classList.remove('error');
+                txtAtributo3.nextElementSibling.textContent = '';
+            }
+        }
+
+        return true;
+    }
+    function agregarPersona(lista) {
+        const {
+            txtNombre,
+            txtApellido,
+            txtEdad,
+            selecTipo,
+            txtAtributo1,
+            txtAtributo2,
+            txtAtributo3,
+        } = controles;
+
+        const id = getMaxId(lista)+1;
+            if (selecTipo.value == 'heroe') {
+                lista.push(
+                    new Heroe(
+                        id,
+                        txtNombre.value,
+                        txtApellido.value,
+                        txtEdad.value,
+                        txtAtributo1.value,
+                        txtAtributo2.value,
+                        txtAtributo3.value
+                    )
+                );
+            } else if (selecTipo.value == 'villano') {
+                lista.push(
+                    new Villano(
+                        id,
+                        txtNombre.value,
+                        txtApellido.value,
+                        txtEdad.value,
+                        txtAtributo1.value,
+                        txtAtributo2.value,
+                        txtAtributo3.value
+                    )
+                );
+            } else {
+                lista.push(new Persona(txtId.value, txtNombre.value, txtApellido.value, txtEdad.value));
+            }
+    }
+    function modificarPersona(id,lista) {
+        const {
+            txtId,
+            txtNombre,
+            txtApellido,
+            txtEdad,
+            selecTipo,
+            txtAtributo1,
+            txtAtributo2,
+            txtAtributo3,
+        } = controles;
+
+        const index = lista.findIndex((persona) => persona.id == id);
+        
+        if (selecTipo.value == 'heroe') {
+            lista[index].nombre = txtNombre.value;
+            lista[index].apellido = txtApellido.value;
+            lista[index].edad = txtEdad.value;
+            lista[index].alterego = txtAtributo1.value;
+            lista[index].ciudad = txtAtributo2.value;
+            lista[index].publicado = txtAtributo3.value;
+        } else if (selecTipo.value == 'villano') {
+            lista[index].nombre = txtNombre.value;
+            lista[index].apellido = txtApellido.value;
+            lista[index].edad = txtEdad.value;
+            lista[index].enemigo = txtAtributo1.value;
+            lista[index].robos = txtAtributo2.value;
+            lista[index].asesinatos = txtAtributo3.value;
+        } else {
+            lista[index].nombre = txtNombre.value;
+            lista[index].apellido = txtApellido.value;
+            lista[index].edad = txtEdad.value;
+        }
+        console.log(lista)
+    }
+
+
+    function limpiarForm() {
+        const {
+            txtId,
+            txtNombre,
+            txtApellido,
+            txtEdad,
+            selecTipo,
+            txtAtributo1,
+            txtAtributo2,
+            txtAtributo3,
+        } = controles;
+
+        txtId.value = '';
+        txtNombre.value = '';
+        txtApellido.value = '';
+        txtEdad.value = '';
+        txtAtributo1.value = '';
+        txtAtributo2.value = '';
+        txtAtributo3.value = '';
+    }
+
+
+
+</script>
+
+</html>
